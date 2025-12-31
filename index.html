@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>PolicyDiary Work Diary Dashboard</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1A1A1A",
+                        "primary-hover": "#162c69",
+                        "accent-teal": "#14b8a6",
+                        "accent-amber": "#f59e0b",
+                        "background-light": "#f7f7f7",
+                        "background-dark": "#191919",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1f2937",
+                        "border-dark": "#374151",
+                        "text-muted": "#9ca3af"
+                    },
+                    fontFamily: {
+                        display: "Inter"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        lg: "1rem",
+                        xl: "1.5rem",
+                        full: "9999px"
+                    }
+                }
+            }
+        };
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .bento-card {
+                @apply bg-card-light dark:bg-[#1e2330] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 dark:border-[#282f43] flex flex-col relative overflow-hidden;
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-thin::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+            .scrollbar-thin::-webkit-scrollbar-track {
+                @apply bg-transparent;
+            }
+            .scrollbar-thin::-webkit-scrollbar-thumb {
+                @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+            }
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .conic-gradient {
+            background: conic-gradient(#1e3b8a 0% 65%, #14b8a6 65% 85%, #f59e0b 85% 100%);
+        }
+
+        /* Easter Egg Animations */
+        @keyframes lightning-flash {
+            0%, 100% { opacity: 0; }
+            2%, 8% { opacity: 0.9; background-color: white; }
+            5% { opacity: 0.3; background-color: #fff; }
+            50% { opacity: 0; }
+            52%, 58% { opacity: 0.8; background-color: #e0f2fe; }
+            55% { opacity: 0.2; }
+            80% { opacity: 0; }
+            82% { opacity: 0.6; background-color: white; }
+        }
+
+        @keyframes thunder-shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+        
+        @keyframes rain-fall {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 10% 100vh; }
+        }
+
+        .animate-lightning {
+            animation: lightning-flash 1.5s infinite;
+        }
+
+        .animate-shake {
+            animation: thunder-shake 0.5s cubic-bezier(.36,.07,.19,.97) both infinite;
+        }
+        
+        .dark-storm-overlay {
+            background: linear-gradient(to bottom, rgba(10, 15, 30, 0.8), rgba(0,0,0,0.4));
+        }
+
+        .rain-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            background-image: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            background-size: 2px 40px;
+            animation: rain-fall 0.25s linear infinite;
+            opacity: 0.6;
+        }
+        
+        .rain-layer-2 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            background-image: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(180, 200, 255, 0.3) 50%, rgba(255,255,255,0) 100%);
+            background-size: 3px 60px;
+            animation: rain-fall 0.4s linear infinite;
+            opacity: 0.4;
+        }
+
+        .storm-cloud {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 350px;
+            background: radial-gradient(ellipse at top, #1f2937 0%, #111827 40%, transparent 70%);
+            filter: blur(20px);
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: all 0.5s ease-out;
+            z-index: 90;
+            pointer-events: none;
+        }
+        
+        .storm-cloud.active {
+            opacity: 0.9;
+            transform: translateY(-20%);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "recharts": "https://esm.sh/recharts@^3.6.0"
+  }
+}
+</script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-900 dark:text-white min-h-screen flex flex-col transition-colors duration-200">
+    <div id="root"></div>
+</body>
+</html>

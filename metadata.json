@@ -1,0 +1,5 @@
+{
+  "name": "sfzn dashboard",
+  "description": "A comprehensive government work diary dashboard featuring task tracking, document registry, focus analytics, and resource management with a responsive bento-grid layout.",
+  "requestFramePermissions": []
+}
